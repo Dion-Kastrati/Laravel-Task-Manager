@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
     public function loginPost(Request $request)
     {
     $credetials = [
@@ -40,11 +46,5 @@ class UserController extends Controller
         else{
             return back()->with('error', 'Database error!');
         }
-    }
-
-    public function logout(){
-        Auth::logout();
-        return redirect()->route('login');
-    }
-    
+    }    
 }

@@ -11,11 +11,11 @@
     <div class="mt-10 flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <a href="{{ route('tasks') }}"  class="flex float-end text-2xl/9">×</a>
-            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Shto nje task te ri</h2>
+            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Perditeso taskun</h2>
             
         </div>
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="/addNewTask" method="POST">
+            <form class="space-y-6" action="{{ route('editTask', $task->id) }}" method="POST">
                 @csrf
                 <div>
                     <label for="title" class="block text-sm/6 font-medium text-gray-900">Titulli</label>
@@ -26,9 +26,7 @@
                 <div>
                     <label for="desc" class="block text-sm/6 font-medium text-gray-900">Pershkrimi</label>
                     <div class="mt-2">
-                        <textarea name="description" id="description" cols="30" rows="5" class="pt-2 pb-2 pr-2 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-                            {{$task->description}}
-                        </textarea>
+                        <textarea name="description" id="description" cols="30" rows="5" class="pt-2 pb-2 pr-2 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">{{$task->description}}</textarea>
                     </div>
                 </div>
                 <div>
@@ -38,16 +36,38 @@
                     <div class="mt-2 flex justify-between">
                         <div>
                             <label for="rad_1">Larte</label>
-                            <input type="radio" name="priority" id="rad_1" value="1">
+                            @if($task->priority == 1)
+                                <input checked type="radio" name="priority" id="rad_1" value="1">
+                            @else
+                                <input type="radio" name="priority" id="rad_1" value="1">
+                            @endif
                         </div>
                         <div>
                             <label for="rad_1">Mesem</label>
-                            <input selected type="radio" name="priority" id="rad_2" value="2">
+                            @if($task->priority == 2)
+                                <input checked type="radio" name="priority" id="rad_2" value="2">
+                            @else
+                                <input type="radio" name="priority" id="rad_2" value="2">
+                            @endif
                         </div>
                         <div>
                             <label for="rad_1">Ulet</label>
-                            <input type="radio" name="priority" id="rad_3" value="3">
+                            @if($task->priority == 3)
+                                <input checked type="radio" name="priority" id="rad_3" value="3">
+                            @else
+                                <input type="radio" name="priority" id="rad_3" value="3">
+                            @endif                      
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <br>
+                    <div class="mb-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" name="status" value="0" 
+                            {{ $task->status == 1 ? 'checked' : '' }}>
+                            <span>Task i perfunduar</span>
+                        </label>
                     </div>
                 </div>
                 <div>

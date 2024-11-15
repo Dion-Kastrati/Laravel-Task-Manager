@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class DefaultController extends Controller
 {
@@ -15,12 +16,14 @@ class DefaultController extends Controller
         return view("register");
     }
 
-    function showTasksGet(){
+    function showTasksGet(Task $task){
+        Gate::authorize('view', $task);
         $tasks = Task::where('user_id', Auth::id())->latest()->get();
         return view('tasks', ['tasks' => $tasks]);
      }
 
-    function addNewTaskGet(){
+    function addNewTaskGet(Task $task){
+        Gate::authorize('create', $task);
         return view('addNewTask');
     }
 }

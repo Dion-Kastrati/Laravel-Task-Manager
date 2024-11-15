@@ -7,7 +7,7 @@
 </head>
 <body>
     
-
+<!-- Nav Bar -->
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -26,12 +26,54 @@
   </div>
 </nav>
 
-<div class="bg-white max-w-screen-md mx-auto mt-16">
-    <a href="{{ route('addNewTask') }}" class=" float-end bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">New Task</a>
+<div class="bg-white shadow-lg rounded-lg max-w-screen-md mx-auto mt-16 p-6 flex flex-col md:flex-row items-center justify-between">
+    <form action="{{ route('tasks.filter') }}" method="GET" class="flex flex-wrap items-center space-x-4">
+        <div class="flex items-center">
+            <label for="status" class="mr-2 text-gray-700 font-semibold">Status:</label>
+            <select name="status" id="status" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option selected value="">Te gjitha</option>
+                <option value="1">I perfunduar</option>
+                <option value="0">Jo i perfunduar</option>
+            </select>
+        </div>
+
+        <div class="flex items-center">
+            <label for="priority" class="mr-2 text-gray-700 font-semibold">Prioritet:</label>
+            <select name="priority" id="priority" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option selected value="">Te gjitha</option>
+                <option value="3">I Ulet</option>
+                <option value="2">I Mesem</option>
+                <option value="1">I Larte</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                Filtro
+            </button>
+        </div>
+    </form>
+
+    <!-- New Task Button -->
+    <div class="mt-4 md:mt-0">
+        <a href="{{ route('addNewTask') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg">
+            New Task
+        </a>
+    </div>
 </div>
-<br>
+@if(session('success'))
+    <div class="bg-green-500 text-white p-4 rounded-md mb-4 sm:rounded-md max-w-screen-md mx-auto mt-8">
+        {{ session('success') }}
+    </div>
+@elseif(session('error'))
+<div class="bg-red-500 text-white p-4 rounded-md mb-4 sm:rounded-md max-w-screen-md mx-auto mt-8">
+        {{ session('error') }}
+    </div>
+@endif
+
+<!-- Cards for each task -->
 @foreach($tasks as $task)
-<ul class="bg-white shadow overflow-hidden sm:rounded-md max-w-screen-md mx-auto mt-8">
+<ul class="bg-white shadow-lg overflow-hidden sm:rounded-md max-w-screen-md mx-auto mt-8">
 
 
     <li>
@@ -40,9 +82,11 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900">{{$task['title']}}</h3> <br>
             </div>
             <div class="mt-4 items-center justify-between">
-                <p class=" mt-1 max-w-2xl text-sm text-gray-500">{{$task['description']}}</p>
+                <pre class=" mt-1 max-w-2xl text-sm text-gray-500">{{$task['description']}}</pre>
                 <div class=" block mt-4 mb-4 flex items-center justify-between">
-                <p class="text-sm font-medium text-gray-500">Statusi: {{ $task['status'] == 0 ? "Jo e perfunduar" : "Perfunduar"}}</p>
+                <p class="text-sm font-medium text-gray-500">
+                    Statusi: {{ $task->status == 1 ? "I Përfunduar" : "Jo i Përfunduar" }}
+                </p>
                 @if($task->priority == 1)
                     <p class="text-sm font-medium text-gray-500">Prioriteti: I Larte</p>
                 @elseif($task->priority == 2)

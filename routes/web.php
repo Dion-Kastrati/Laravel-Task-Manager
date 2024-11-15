@@ -23,7 +23,12 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 // Task related routes
 Route::get("/tasks", [DefaultController::class, 'showTasksGet'])->name('tasks');
+
 Route::get('/addNewTask', [DefaultController::class, 'addNewTaskGet'])->name('addNewTask');
 Route::post('/addNewTask', [TasksController::class, 'addNewTask'])->name('addNewTask');
+
 Route::delete('/destroy/{task}', [TasksController::class, "destroy"])->name('destroy');
-Route::get("/editTask/{{post}}",[TasksController::class, "showEditTaskForm"])->name('editTask');
+
+Route::get("/editTask/{task}",[TasksController::class, "showEditTaskForm"])->name('editTask');
+Route::post('/editTask/{task}', [TasksController::class, "saveUpdatedFields"])->name('editTask');
+Route::get('/tasks/filter', [TasksController::class, 'filterTasks'])->name('tasks.filter');
