@@ -20,13 +20,15 @@
                 <div>
                     <label for="title" class="block text-sm/6 font-medium text-gray-900">Titulli</label>
                     <div class="mt-2">
-                        <input id="title" name="title" type="text" autocomplete="text" class="pt-2 pb-2 pr-2 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <input id="title" name="title" value="{{$task->title}}" type="text" autocomplete="text" class="pt-2 pb-2 pr-2 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
                 <div>
                     <label for="desc" class="block text-sm/6 font-medium text-gray-900">Pershkrimi</label>
                     <div class="mt-2">
-                        <textarea name="description" id="description" cols="30" rows="5" class="pt-2 pb-2 pr-2 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"></textarea>
+                        <textarea name="description" id="description" cols="30" rows="5" class="pt-2 pb-2 pr-2 pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                            {{$task->description}}
+                        </textarea>
                     </div>
                 </div>
                 <div>
@@ -40,7 +42,7 @@
                         </div>
                         <div>
                             <label for="rad_1">Mesem</label>
-                            <input type="radio" name="priority" id="rad_2" value="2">
+                            <input selected type="radio" name="priority" id="rad_2" value="2">
                         </div>
                         <div>
                             <label for="rad_1">Ulet</label>
@@ -49,7 +51,7 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Shto</button>
+                    <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Perditso</button>
                 </div>
             </form>
         </div>

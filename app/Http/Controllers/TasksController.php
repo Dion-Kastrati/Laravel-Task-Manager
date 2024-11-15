@@ -2,23 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tasks;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
-    function addTask(Request $request){
-        $tasks = new Tasks();
+    function addNewTask(Request $request){
         $incomingFields = $request->validate([
-            'title' => ['required', 'max:20'],
+            'title' => ['required'],
             'description' => ['required'],
-            'priority' => []
+            'priority' => ['required']
         ]);
-        if($tasks->save($incomingFields)){
-            return redirect()->route('tasks');
-        }
-        else{
-            return back()->with("error", "Task was not created!");
-        }
+        //Security measure
+        $incomingFields['user_id'] = Auth::id();
+        $incomingFields['title'] = strip_tags($incomingFields['title']);
+        $incomingFields['description'] = strip_tags($incomingFields['description']);
+        Task::create($incomingFields);
+        return redirect()->route('tasks');
+    }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('tasks');
+    }
+
+    public function showEditTaskForm(){
+        return redirect()->route('editTask');
     }
 }
